@@ -35,7 +35,7 @@ void buf2HexStr_devx(const char *pSrcbuf,int nSrcLen,char *pDestBuf,int nDestBuf
 		return;
 	}
 
-	//ÓÉÓÚÒª±ä³ÉË«×Ö½Ú£¬ËùÒÔÕ¼ÓÃ¿Õ¼äÒª*2
+	//ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ë«ï¿½Ö½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½Ã¿Õ¼ï¿½Òª*2
 	nCanCopyLen = min(nSrcLen,nDestBufLen/2);
 	//if( nLen> 1024/2)	nLen = 1024;
 	char *pPos = pDestBuf;
@@ -66,7 +66,7 @@ long start(unsigned __int64 &iLastDataTime,DWORD &dwMapCount)
 	g_pi64LastDataTime = &iLastDataTime;
 	g_dwMapCount = &dwMapCount;
 	hTh_GetGPS = CreateThread(NULL,0,threadGetGPSData,NULL,0,&IDThGPS);
-// 	Sleep(30000);//Îª²âÊÔÒì³£ÔÝÊ±¹Ø±Õ´ÓÊý¾Ý¿âÈ¡Êý¾Ý¿âÄ£¿é
+// 	Sleep(30000);//Îªï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ê±ï¿½Ø±Õ´ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½Ä£ï¿½ï¿½
 // 	hTh_GetDB = CreateThread(NULL,0,threadGetWriteDB,NULL,0,&IDThGPS);	
 	
 	return nret;
@@ -92,11 +92,11 @@ DWORD WINAPI threadGetGPSData(LPVOID lpParameter)
 	char *buf = NULL;
 	char strFilename[20]="Console";
 	int nlen = sizeof(GPSINFO)+20;
-	nlen = 50*1024*1024;//ÓëCGPS_Socket.m_pDataList ´óÐ¡±£³ÖÒ»ÖÂ¡£
+	nlen = 50*1024*1024;//ï¿½ï¿½CGPS_Socket.m_pDataList ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Â¡ï¿½
 	buf = (char *)malloc(nlen);	
 	if(!buf) 
 	{
-		MessageBox(NULL,("threadGetGPSData-ÉêÇëbuf¿Õ¼äÊ§°Ü"),("Warning"),0);
+		MessageBox(NULL,("threadGetGPSData-ï¿½ï¿½ï¿½ï¿½bufï¿½Õ¼ï¿½Ê§ï¿½ï¿½"),("Warning"),0);
 		return 0;
 	}
 	GPSCommand *gpsCommand = new GPSCommand();
@@ -114,7 +114,7 @@ DWORD WINAPI threadGetGPSData(LPVOID lpParameter)
 		ZeroMemory(buf,nlen);
 		int nRet = Gdev.startGPS(buf,nlen);
 
-		//ÔÚÕâÀï»ñÈ¡´¦ÀíÃüÁîÀ´´¦Àí
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ZeroMemory(gpsCommand,sizeof(GPSCommand));
 		gpsCommand->strCommandLine		=	pstrCommandLine;
 		gpsCommand->commandParameters	=	pCommandPara;
@@ -203,14 +203,14 @@ void wlog( char *buf,int nLen,GPSINFO &gpsInfo,BOOL bToGps/*=TRUE*/ )
 {
 	char strGpsInfo[1024]="";
 
-	if(bToGps)	sprintf(strGpsInfo,"%s-","[Console]¡ú[GPS]");
+	if(bToGps)	sprintf(strGpsInfo,"%s-","[Console]ï¿½ï¿½[GPS]");
 	else 
-		sprintf(strGpsInfo,"%s-","[GPS]¡ú[Console]");
+		sprintf(strGpsInfo,"%s-","[GPS]ï¿½ï¿½[Console]");
 
 	strcat(strGpsInfo,buf);
 	if(!bToGps)
 	{
-		//°Ñbuf ×ª»»³É16½øÖÆÏÔÊ¾
+		//ï¿½ï¿½buf ×ªï¿½ï¿½ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 		buf2HexStr2(buf,strGpsInfo+strlen(strGpsInfo),nLen);
 	}
 	//TODO: NEEDLOG
@@ -267,8 +267,8 @@ long Protocal::updateHaxiMap(char *strSIM,GPSGATEDATA gpsData)
 	EnterCriticalSection(&m_mapLock);
 	m_gpsRuiXMap.erase(strSIM);
 	inserted = m_gpsRuiXMap.insert(RUIX_MAP::value_type(strSIM,gpsData));
-	if(inserted.second==true) sprintf(strTmp,"updateHaxiMap-¹þÏ£±íÖÐ³É¹¦²åÈëSIMÐÅÏ¢-%s",strSIM);
-	else sprintf(strTmp,"updateHaxiMap-¹þÏ£±íÖÐ²åÈëSIMÐÅÏ¢Ê§°Ü-%s",strSIM);
+	if(inserted.second==true) sprintf(strTmp,"updateHaxiMap-ï¿½ï¿½Ï£ï¿½ï¿½ï¿½Ð³É¹ï¿½ï¿½ï¿½ï¿½ï¿½SIMï¿½ï¿½Ï¢-%s",strSIM);
+	else sprintf(strTmp,"updateHaxiMap-ï¿½ï¿½Ï£ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½SIMï¿½ï¿½Ï¢Ê§ï¿½ï¿½-%s",strSIM);
 	//TODO: NEEDLOG
 	//m_pGps->wlog("Console",strTmp);
 	LeaveCriticalSection(&m_mapLock);
@@ -291,7 +291,7 @@ BOOL Protocal:: getIPPort(char *strSIM,GPSGATEDATA &gpsData)
  	findItem = m_gpsRuiXMap.find(strSIM);
 	if(findItem==m_gpsRuiXMap.end())
 	{
-		sprintf(strTmp,"getIPPort-ÔÚIPÓ³Éä±íÖÐÃ»ÓÐÕÒµ½SIMµÄµØÖ·ÐÅÏ¢-SIM:%s",strSIM);
+		sprintf(strTmp,"getIPPort-ï¿½ï¿½IPÓ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½SIMï¿½Äµï¿½Ö·ï¿½ï¿½Ï¢-SIM:%s",strSIM);
 		//TODO: NEEDLOG
 		//	m_pGps->wlog(m_strConsole,strTmp);
 		Write_Log(strTmp);
@@ -300,7 +300,7 @@ BOOL Protocal:: getIPPort(char *strSIM,GPSGATEDATA &gpsData)
 	else
 	{
 		gpsData =  findItem->second;
-		sprintf(strTmp,"getIPPort-ÔÚIPÓ³Éä±íÖÐÕÒµ½ÐÅÏ¢-%s",strSIM);
+		sprintf(strTmp,"getIPPort-ï¿½ï¿½IPÓ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Ï¢-%s",strSIM);
 		//TODO: NEEDLOG
 		//	m_pGps->wlog(m_strConsole,strTmp);
 		bret = TRUE;
@@ -344,14 +344,14 @@ BOOL Protocal::writeDataBase( GPSINFO gpsInfo )
 //			continue;
 //		}
 //
-//		sprintf(strTmp,"[GPS]¡ú[Console]-nDataLen:%d",gpsData.nDataLen);
+//		sprintf(strTmp,"[GPS]ï¿½ï¿½[Console]-nDataLen:%d",gpsData.nDataLen);
 //		m_pGps->wlog(strFilename,gpsData.pDatabuf,gpsData.nDataLen);
 //
 //		long nRet = 0;
 //		nRet = SynchronGPSData(pDataBuf,gpsData.nDataLen,gpsInfo);
 //		if(nRet<1)
 //		{
-//			returnStar(2,"startGPS-À´×ÔGPS±¨ÎÄ¶ÓÁÐµÄ±¨ÎÄ²»·ûºÏ±¨ÎÄµÄ¹æ·¶",strFilename);
+//			returnStar(2,"startGPS-ï¿½ï¿½ï¿½ï¿½GPSï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ÐµÄ±ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ÄµÄ¹æ·¶",strFilename);
 //			continue;
 //		}
 //		nRet = updateHaxiMap(gpsInfo.COMMADDR,gpsData);
@@ -359,7 +359,7 @@ BOOL Protocal::writeDataBase( GPSINFO gpsInfo )
 //		nRet = writeDataBase(gpsInfo);
 //		if(nRet <0)
 //		{
-//			m_pGps->wlog(gpsInfo.COMMADDR,"[Protocal]¡ú[DB]-Fail to write DB");
+//			m_pGps->wlog(gpsInfo.COMMADDR,"[Protocal]ï¿½ï¿½[DB]-Fail to write DB");
 //			continue;
 //		}
 //
@@ -369,13 +369,13 @@ BOOL Protocal::writeDataBase( GPSINFO gpsInfo )
 //			nRet = writeGPSx(gpsData);
 //			if(nRet<1)
 //			{
-//				sprintf(strTmp,"[Console]¡ú[GPS]%s-Ê§°Ü",gpsData.pDatabuf);			
+//				sprintf(strTmp,"[Console]ï¿½ï¿½[GPS]%s-Ê§ï¿½ï¿½",gpsData.pDatabuf);			
 //			}
 //			else 
-//				sprintf(strTmp,"[Console]¡ú[GPS]-%s",gpsData.pDatabuf);
+//				sprintf(strTmp,"[Console]ï¿½ï¿½[GPS]-%s",gpsData.pDatabuf);
 //			m_pGps->wlog(gpsInfo.COMMADDR,strTmp);
 //		}
-//		sprintf(strTmp,"starGps-µ±Ç°±¨ÎÄ²»ÐèÒªÏìÓ¦--SIM:%s",gpsInfo.COMMADDR);
+//		sprintf(strTmp,"starGps-ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½Òªï¿½ï¿½Ó¦--SIM:%s",gpsInfo.COMMADDR);
 //		
 //
 //	}
@@ -420,7 +420,7 @@ long Protocal::startGPS(char *buf,int nlen)
 int Protocal::doGpsData(char *buf,GPSGATEDATA gpsData,int &nDataLen,int iTimeCount)
 {
 // 	strcpy(buf,"*HQ,6120108162,V1,044541,A,2624.7708,N,10317.3470,E,0.00,354,270312,FFFFFBFF#");
-// 	sprintf(strTmp,"[GPS]¡ú[Console]-nDataLen:%d",gpsData.nDataLen);
+// 	sprintf(strTmp,"[GPS]ï¿½ï¿½[Console]-nDataLen:%d",gpsData.nDataLen);
 // 	m_pGps->wlog(strFilename,gpsData.pDatabuf,gpsData.nDataLen);
 	//2461203243550703540304132504827200102438156e000123fffffbffff00c62461203243550704240304132504814400102438424e000079fffffbffff00c72461203243550704590304132504805800102438584e000136fffffbffff00c8
 	int nret=0;
@@ -437,15 +437,15 @@ int Protocal::doGpsData(char *buf,GPSGATEDATA gpsData,int &nDataLen,int iTimeCou
 	{
 		if(iTimeCount==0)
 		{
-			Write_Log("startGPS-À´×ÔGPS±¨ÎÄ¶ÓÁÐµÄ±¨ÎÄ²»·ûºÏ±¨ÎÄµÄ¹æ·¶");		
+			Write_Log("startGPS-ï¿½ï¿½ï¿½ï¿½GPSï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ÐµÄ±ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ÄµÄ¹æ·¶");		
 			buf2HexStr_devx(buf,gpsData.nDataLen,strTmp,nLen_StrTmp);
 			Write_Log(strTmp);
 		}
 		return -2002;
-	//	return returnStar(2,"startGPS-À´×ÔGPS±¨ÎÄ¶ÓÁÐµÄ±¨ÎÄ²»·ûºÏ±¨ÎÄµÄ¹æ·¶",strFilename);
+	//	return returnStar(2,"startGPS-ï¿½ï¿½ï¿½ï¿½GPSï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ÐµÄ±ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ÄµÄ¹æ·¶",strFilename);
 	}
 	(*g_dwMapCount)++;
-	//nret ¾ÍÊÇÊµ¼ÊÊ¹ÓÃÊý¾Ý³¤¶È
+	//nret ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 	nDataLen = nret;
 /*	{
 		sprintf(strTmp,"recvgpsData,commandr=%s,valid=%d,datalen=%d",gpsInfo.COMMADDR,gpsInfo.bValid,gpsData.nDataLen);
@@ -468,7 +468,7 @@ int Protocal::doGpsData(char *buf,GPSGATEDATA gpsData,int &nDataLen,int iTimeCou
 	}
 	/**/
 	gpsData.pCurGPSClass = pCurGPSClass;
-	//¸ù¾Ý±¨ÎÄÀàÐÍÀ´¾ö¶¨ÏÂÃæµÄ²Ù×÷
+	//ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 	if(gpsInfo.nMsgID == MSG_LOGIN)
 	{
 		/*if(nret)*/ updateHaxiMap(gpsInfo.COMMADDR,gpsData);
@@ -482,13 +482,12 @@ int Protocal::doGpsData(char *buf,GPSGATEDATA gpsData,int &nDataLen,int iTimeCou
 	}
 	
 	{
-		//normalÊý¾Ý
+		//normalï¿½ï¿½ï¿½ï¿½
 
 		int nRet = writeDataBase(gpsInfo);
-		nRet =0;
 		if(nRet<1) 
 		{
-			sprintf(strTmp,"[Protocal]¡ú[DB]-Fail to write DB.ret=%d,commandr=%s",nRet,gpsInfo.COMMADDR);
+			sprintf(strTmp,"[Protocal]ï¿½ï¿½[DB]-Fail to write DB.ret=%d,commandr=%s",nRet,gpsInfo.COMMADDR);
 			//TODO: NEEDLOG
 			//		m_pGps->wlog(gpsInfo.COMMADDR,strTmp);	
 
@@ -497,7 +496,7 @@ int Protocal::doGpsData(char *buf,GPSGATEDATA gpsData,int &nDataLen,int iTimeCou
 			buf2HexStr_devx(buf,gpsData.nDataLen,strTmp,nLen_StrTmp);
 			Write_Log(gpsInfo.COMMADDR,strTmp);
 		}
-		//else m_pGps->wlog(gpsInfo.COMMADDR,"[Protocal]¡ú[DB]-success to write DB");
+		//else m_pGps->wlog(gpsInfo.COMMADDR,"[Protocal]ï¿½ï¿½[DB]-success to write DB");
 
 		int nLen = pCurGPSClass->getResMsg(buf,gpsInfo);
 		if(nLen>0)
@@ -506,9 +505,9 @@ int Protocal::doGpsData(char *buf,GPSGATEDATA gpsData,int &nDataLen,int iTimeCou
 			nRet =writeGPSx(gpsData); 
 			if(nRet<1)
 			{
-				sprintf(strTmp,"ret [Console]¡ú[GPS]%s-Ê§°Ü.%d",gpsData.pDatabuf,nRet);			
+				sprintf(strTmp,"ret [Console]ï¿½ï¿½[GPS]%s-Ê§ï¿½ï¿½.%d",gpsData.pDatabuf,nRet);			
 			}
-			else sprintf(strTmp,"ret [Console]¡ú[GPS]-%s",gpsData.pDatabuf);			
+			else sprintf(strTmp,"ret [Console]ï¿½ï¿½[GPS]-%s",gpsData.pDatabuf);			
 			//TODO: NEEDLOG
 			//		m_pGps->wlog(gpsInfo.COMMADDR,strTmp);
 			Write_Log(gpsInfo.COMMADDR,strTmp);
@@ -521,7 +520,7 @@ int Protocal::doGpsData(char *buf,GPSGATEDATA gpsData,int &nDataLen,int iTimeCou
 
 
 		}
-		else sprintf(strTmp,"starGps-µ±Ç°±¨ÎÄ²»ÐèÒªÏìÓ¦--SIM:%s",gpsInfo.COMMADDR);
+		else sprintf(strTmp,"starGps-ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½Òªï¿½ï¿½Ó¦--SIM:%s",gpsInfo.COMMADDR);
 
 	}
 	return nret;	
@@ -534,9 +533,9 @@ long Protocal::start()
 
 long Protocal::Process_Command(GPSCommand *gpsCommand,char *pGpsDataBuf)
 {
-	///´ÓGPSGateAdpter¶ÁÈ¡ÃüÁî
-	//°ÑÃüÁî£¨xml¸ñÊ½£©·Åµ½GPSÉè±¸ÖÐ½âÎö£¬·­Òë³Ébuffer
-	//°Ñbuffer Í¨¹ýsocket ·¢ËÍ¸ø ¶ÔÓ¦µÄgps
+	///ï¿½ï¿½GPSGateAdpterï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½î£¨xmlï¿½ï¿½Ê½ï¿½ï¿½ï¿½Åµï¿½GPSï¿½è±¸ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½buffer
+	//ï¿½ï¿½buffer Í¨ï¿½ï¿½socket ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½Ó¦ï¿½ï¿½gps
 	
 	int nRet = getCmd(gpsCommand);
 	if(nRet < 1)
@@ -547,7 +546,7 @@ long Protocal::Process_Command(GPSCommand *gpsCommand,char *pGpsDataBuf)
 		{
 			GPSGATEDATA gpsData;
 
-			//Í¨¹ýdeviceID »ñÈ¡ Éè±¸µ±Ç°µÄ socketÐÅÏ¢
+			//Í¨ï¿½ï¿½deviceID ï¿½ï¿½È¡ ï¿½è±¸ï¿½ï¿½Ç°ï¿½ï¿½ socketï¿½ï¿½Ï¢
 			int iCnt = 0;
 			BOOL bGetIPPort  = false;
 			while(!bGetIPPort)
@@ -565,8 +564,8 @@ long Protocal::Process_Command(GPSCommand *gpsCommand,char *pGpsDataBuf)
 			}
 			if(!bGetIPPort)
 			{
-				//³¤Ê±¼äÃ»ÓÐ»ñÈ¡µ½¶ÔÓ¦sim µÄip£¬port£¬Ö±½Ó¶ªÆú
-				//ÕâÀï°ÑÃüÁî»¹»ØÊý¾ÝÁ´È¥£¬ÏÂ´ÎÔÙÊ¹ÓÃ
+				//ï¿½ï¿½Ê±ï¿½ï¿½Ã»ï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ó¦sim ï¿½ï¿½ipï¿½ï¿½portï¿½ï¿½Ö±ï¿½Ó¶ï¿½ï¿½ï¿½
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 				nRet = -2;
 				break;
 			}
@@ -574,7 +573,7 @@ long Protocal::Process_Command(GPSCommand *gpsCommand,char *pGpsDataBuf)
 			
 			if(gpsCommand->nLenCommandLine <1)			
 			{
-				//´Ó¶ÔÓ¦gps Éè±¸ÖÐ ·­ÒëÃüÁî
+				//ï¿½Ó¶ï¿½Ó¦gps ï¿½è±¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				GPSClass *pCurGPSClass=(GPSClass*)gpsData.pCurGPSClass;
 				nRet = pCurGPSClass->getConsole2GPSData(gpsCommand->pstrCommandXMl,gpsCommand);
 				if(nRet<1)
@@ -595,14 +594,14 @@ long Protocal::Process_Command(GPSCommand *gpsCommand,char *pGpsDataBuf)
 				nRet = writeGPSx(gpsData);	
 				if(nRet<1)
 				{
-					sprintf(strTmp,"[Console]¡ú[GPS]%s-Ê§°Ü",gpsData.pDatabuf);			
+					sprintf(strTmp,"[Console]ï¿½ï¿½[GPS]%s-Ê§ï¿½ï¿½",gpsData.pDatabuf);			
 				}
 				else 
-					sprintf(strTmp,"[Console]¡ú[GPS]-%s",gpsData.pDatabuf);
+					sprintf(strTmp,"[Console]ï¿½ï¿½[GPS]-%s",gpsData.pDatabuf);
 			}
 		}
-		// ÓÉÓÚÐèÒª°ÑÊÕµ½µÄÃüÁî ·Åµ½Êý¾Ý¿âÖÐ£¬ËùÒÔ»¹ÊÇÒªµ÷ÓÃWriteCommand
-		//´ËÃüÁîÊÇ·¢¸øGPSÍø¹Ø×ÔÉíµÄ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Åµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½WriteCommand
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½GPSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		nRet= WriteCommand(gpsCommand);
 
 	}while(0);
@@ -617,11 +616,11 @@ long Protocal::Process_Command(GPSCommand *gpsCommand,char *pGpsDataBuf)
 }
 //GPSGATEDATA gpsData
 /*
-*	·¢ËÍ¸øgps Êý¾ÝÓÃµ½µÄ½á¹¹Ìå³ÉÔ±
-	pGpsGateData->curSocketInfo.tcpSocketHandle;//ÔÚmapÖÐÒÑ¾­ÓÐÖµ
-	pGpsGateData->oldSocketInfo.tcpSocketHandle;//ÔÚmapÖÐÒÑ¾­ÓÐÖµ
-	pGpsGateData->pDatabuf,//ÐèÒªµ¥¶À¹¹Ôì
-	pGpsGateData->nDataLen//ÐèÒªµ¥¶À¹¹Ôì
+*	ï¿½ï¿½ï¿½Í¸ï¿½gps ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½Ä½á¹¹ï¿½ï¿½ï¿½ï¿½Ô±
+	pGpsGateData->curSocketInfo.tcpSocketHandle;//ï¿½ï¿½mapï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Öµ
+	pGpsGateData->oldSocketInfo.tcpSocketHandle;//ï¿½ï¿½mapï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Öµ
+	pGpsGateData->pDatabuf,//ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	pGpsGateData->nDataLen//ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 long Protocal::writeGPSx(GPSGATEDATA gpsData)
 {
